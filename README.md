@@ -7,6 +7,7 @@ __do_update__
 - Usage: do_update
 
 __msqldumpgrep__
+
 - Takes mysqldump from user defined database tables matching with the regex pattern.
 - Usage: mysqldumpgrep [MYSQL | MYSQLDUMP OPTIONS] DB_NAME PATTERN
 - Example: mysqldumpgrep -p passwd mydb ^prefix_ > dump.sql
