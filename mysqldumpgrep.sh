@@ -2,7 +2,7 @@
 # Takes mysqldump from user defined database tables matching with the
 # regex pattern.
 # 
-# Usage: mysqldumpgrep [MYSQL | MYSQLDUMP OPTIONS] DB_NAME PATTERN
+# Usage: mysqldumpgrep [MYSQL|MYSQLDUMP OPTIONS] DB_NAME PATTERN
 # Example: mysqldumpgrep -p passwd mydb ^prefix_ > dump.sql
 #
 # The MIT License
@@ -35,7 +35,7 @@ done
 
 if [ "$#" != 2 ]
 then
-	echo "Usage: $0 [MYSQL | MYSQLDUMP OPTIONS] DB_NAME PATTERN"
+	echo "Usage: $0 [MYSQL|MYSQLDUMP OPTIONS] DB_NAME PATTERN"
 	exit 0
 fi
 

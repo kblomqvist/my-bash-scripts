@@ -1,6 +1,7 @@
-TARGET = $(HOME)/scripts
+SOURCE = *.sh
+DEST = $(HOME)/scripts
 
 .PHONY : install
 install :
-	mkdir -p $(TARGET) # Edit ~/.bash_profile to add this into your PATH
-	cp * $(TARGET)
+	mkdir -p $(DEST) # Edit ~/.bash_profile to add this into your PATH
+	cp $(SOURCE) $(DEST)
