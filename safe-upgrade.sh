@@ -3,7 +3,7 @@
 # upgrade is run in screen in case of abrupt termination of the ssh
 # connection.
 #
-# Usage: do_update
+# Usage: safe-upgrade
 #
 sudo aptitude update
 sudo screen -S update aptitude safe-upgrade

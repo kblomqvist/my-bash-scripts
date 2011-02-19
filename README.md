@@ -1,10 +1,10 @@
-Collection of Unix Scripts
-==========================
+My scripts
+==========
 
-__do_update__
+__safe-upgrade__
 
 - This script cascades aptitude update && aptitude safe-upgrade. The safe-upgrade is run in screen in case of abrupt termination of the ssh connection.
-- Usage: do_update
+- Usage: safe-upgrade
 
 __msqldumpgrep__
 
