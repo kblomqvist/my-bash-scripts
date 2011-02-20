@@ -1,7 +1,11 @@
-SOURCE = *.sh
-DEST = $(HOME)/scripts
+exec = safe-upgrade mysqldumpgrep
+dest = $(HOME)/bin
+
+% : %.sh
+	cp $< $@
+	chmod 744 $@
 
 .PHONY : install
-install :
-	mkdir -p $(DEST) # Edit ~/.bash_profile to add this into your PATH
-	cp $(SOURCE) $(DEST)
+install : $(exec)
+	mkdir -p $(dest) # Edit ~/.bash_profile to add this into your PATH
+	mv $(exec) $(dest)
