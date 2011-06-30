@@ -1,4 +1,4 @@
-exec = safe-upgrade mysqldumpgrep
+exec = safe-upgrade mysqldumpgrep dups3
 dest = $(HOME)/bin
 
 % : %.sh
