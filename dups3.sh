@@ -6,8 +6,8 @@
 #
 # Restoring
 # ---------
-# dups3 restore /home/my/foo.txt ~/restore        # Restore a file
-# dups3 restore /home/my ~/restore                # Restore a directory
+# dups3 restore /home/my/foo.txt ~/restore		  # Restore a file
+# dups3 restore /home/my ~/restore				  # Restore a directory
 #
 # todo:
 # dups3 restore -t 2010-09-22T01:10:00 ~/restore  # Restore everything from a point in time
@@ -36,23 +36,23 @@ GPG_KEY=YOUR_GPG_KEY
 # ---------------------------------------------------------------------
 if [ "$#" -eq 1 ] && [ $1 = "backup" ]; then
 	duplicity \
-    	--s3-use-new-style \
-	    --encrypt-key=${GPG_KEY} \
-	    --sign-key=${GPG_KEY} \
-    	--include=/home \
-	    --include=/etc \
-    	--exclude=/** \
-	    --full-if-older-than 30D \
-    	/ ${DEST}
+		--s3-use-new-style \
+		--encrypt-key=${GPG_KEY} \
+		--sign-key=${GPG_KEY} \
+		--include=/home \
+		--include=/etc \
+		--exclude=/** \
+		--full-if-older-than 30D \
+		/ ${DEST}
 
-		duplicity remove-older-than 6M --force ${DEST}
+	duplicity remove-older-than 6M --force ${DEST}
 elif [ "$#" -eq 3 ] && [ $1 = "restore" ]; then
 	duplicity --file-to-restore $2 ${DEST} $3
 else
 	echo "Usage:"
-	echo "  dups3 backup                              # Run backups"
-	echo "  dups3 restore /home/my/foo.txt ~/restore  # Restore a file"
-	echo "  dups3 restore /home/my ~/restore          # Restore a directory"
+	echo "	dups3 backup							  # Run backups"
+	echo "	dups3 restore /home/my/foo.txt ~/restore  # Restore a file"
+	echo "	dups3 restore /home/my ~/restore		  # Restore a directory"
 fi
 
 # Reset the ENV variables. Don't need them sitting around
