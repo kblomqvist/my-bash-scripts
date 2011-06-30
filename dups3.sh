@@ -6,8 +6,8 @@
 #
 # Restoring
 # ---------
-# dups3 restore /home/my/foo.txt ~/restore		  # Restore a file
-# dups3 restore /home/my ~/restore				  # Restore a directory
+# dups3 restore /home/my/foo.txt ~/restore  # Restore a file
+# dups3 restore /home/my ~/restore          # Restore a directory
 #
 # todo:
 # dups3 restore -t 2010-09-22T01:10:00 ~/restore  # Restore everything from a point in time
