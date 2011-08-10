@@ -36,7 +36,11 @@ GPG_KEY=
 export PASSPHRASE=
 
 # MySQL access parameters. Be sure that you have MySQL privilege
-# to LOCK TABLES, otherwise database backup won't work.
+# 'LOCK TABLES', otherwise database backup won't work.
+#
+# How to give 'LOCK TABLES' privilege for root:
+#   GRANT LOCK TABLES ON *.* TO 'root'@'localhost';
+#
 MYSQL_DB_USER=
 MYSQL_DB_PASSWORD=
 MYSQL_DB_HOST=localhost
@@ -52,17 +56,13 @@ MYSQL_DUMP_DEST_DIR=/var/dbdumps
 if [ "$#" -eq 1 ] && [ $1 = "backup" ]; then
 
 	# Prepare MySQL dump
-	MYSQL_ACCESS_PARAMS=-h $MYSQL_DB_PASSWD -u $MYSQL_DB_USER \
-		-p$MYSQL_DB_PASSWORD
+	MYSQL_ACCESS_PARAMS="-h $MYSQL_DB_HOST -u $MYSQL_DB_USER \
+		-p$MYSQL_DB_PASSWORD"
 
 	MYSQL_DUMP_FILE="$MYSQL_DUMP_DEST_DIR/mysqldump.sql"
 
-	if [ -z "${MYSQL_DATABASES+xxx}" ]; then
-		MYSQL_DATABASES=$(mysql $MYSQL_ACCESS_PARAMS -Bse "show databases")
-	fi
-
 	mkdir -p $MYSQL_DUMP_DEST_DIR
-	mysqldump $MYSQL_ACCESS_PARAMS $MYSQL_DATABASES > $MYSQL_DUMP_FILE \
+	mysqldump $MYSQL_ACCESS_PARAMS --all-databases > $MYSQL_DUMP_FILE \
 		&& chmod 600 $MYSQL_DUMP_FILE
 
 	# Run backups
@@ -70,12 +70,11 @@ if [ "$#" -eq 1 ] && [ $1 = "backup" ]; then
 		--s3-use-new-style \
 		--encrypt-key=${GPG_KEY} \
 		--sign-key=${GPG_KEY} \
+		--full-if-older-than 30D \
 		--include=/home \
 		--include=/etc \
 		--include=${MYSQL_DUMP_DEST_DIR} \
-		--exclude=/** \
-		--full-if-older-than 30D \
-		/ s3+http://${BUCKET}
+		--exclude="**" / s3+http://${BUCKET}
 
 	# Remove backups which are older than 6 month
 	duplicity remove-older-than 6M --force s3+http://${BUCKET}
