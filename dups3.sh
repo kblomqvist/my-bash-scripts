@@ -67,14 +67,16 @@ if [ "$#" -eq 1 ] && [ $1 = "backup" ]; then
 
 	# Run backups
 	duplicity \
+		--full-if-older-than 1M \
 		--s3-use-new-style \
+		--s3-european-buckets \
 		--encrypt-key=${GPG_KEY} \
 		--sign-key=${GPG_KEY} \
-		--full-if-older-than 30D \
 		--include=/home \
 		--include=/etc \
+		--include=/root \
 		--include=${MYSQL_DUMP_DEST_DIR} \
-		--exclude="**" / s3+http://${BUCKET}
+		--exclude=/** / s3+http://${BUCKET}
 
 	# Remove backups which are older than 6 month
 	duplicity remove-older-than 6M --force s3+http://${BUCKET}
