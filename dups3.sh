@@ -21,7 +21,7 @@
 # Settings
 # ---------------------------------------------------------------------
 
-# Amazon AWS bucket name and folder if any, for example 'mybucket'
+# Amazon S3 bucket name and folder if any, for example 'mybucket'
 # or 'mybucket/backups'
 BUCKET=
 
